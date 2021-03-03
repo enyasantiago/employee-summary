@@ -9,11 +9,88 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+const { type } = require("os");
+
+const EmployeeObjects = []
+
+const baseQuestions = [
+    {
+    name: "name",
+    type: "input",
+    message: "Name"
+    },
+    {
+    name: "id",
+    type: "input",
+    message: "id"
+    },
+    {
+    name: "email",
+    type: "input",
+    message: "Email"
+    }
+
+]
+const EmployeePrompts = {
+    Manager: [
+        ...baseQuestions,
+        {
+        name: "last_arg",
+        type: "input",
+        message: "Office Number"
+        }
+    ],
+    Engineer: [
+        ...baseQuestions,
+        {
+        name: "last_arg",
+        type: "input",
+        message: "gitHub"
+        }
+    ],
+    Intern: [
+        ...baseQuestions,
+        {
+        name: "last_arg",
+        type: "input",
+        message: "School"
+        }
+    ]
+}
+
+
+
 
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+chooseEmployee()
 
+function chooseEmployee(){
+    inquirer.prompt({
+        name:"type",
+        type:"rawlist",
+        message: "What type?",
+        choices:["Manager","Engineer", "Intern", "Exit"]
+    })
+        .then(response => response.type !== "Exit" ? getEmployee(response.type) : finish())
+}
+
+function getEmployee(Schema){
+    inquirer.prompt(EmployeePrompts[Schema])
+        .then(r => {
+            EmployeeObjects.push(new Schemas[Schema](r.name, r.id, r.email, r.last_arg ))
+            chooseEmployee()
+        })
+}
+
+function finish(){
+    try {
+        fs.writeFileSync(outputPath, render(EmployeeObjects))
+    } catch (error){
+        console.log(error.message)
+    }
+}
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
