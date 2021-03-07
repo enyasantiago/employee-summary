@@ -5,11 +5,11 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
-const OUTPUT_DIR = path.resolve(__dirname, "output");
-const outputPath = path.join(OUTPUT_DIR, "team.html");
-
 const render = require("./lib/htmlRenderer");
 const { type } = require("os");
+
+const OUTPUT_DIR = path.resolve(__dirname, "output");
+const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 
 const EmployeeObjects = []
@@ -97,21 +97,15 @@ function getEmployee(Schema){
         .then(r => {
             // EmployeeObjects.push(new Schemas[Schema](r.name, r.id, r.email, r.last_arg ))
             EmployeeObjects.push(new Schemas(r.name, r.id, r.email, r.last_arg ))
-            console.log(EmployeeObjects[0])
+            // console.log(EmployeeObjects[0])
             chooseEmployee()
         })
 }
-// function getEmployee(Schema){
-//     inquirer.prompt(EmployeePrompts[Schema])
-//         .then(r => {
-//             EmployeeObjects.push(new Schemas[Schema](r.name, r.id, r.email, r.last_arg ))
-//             chooseEmployee()
-//         })
-// }
 
-function finish()
+function finish(){
     try {
         fs.writeFileSync(outputPath, render(EmployeeObjects))
+        
     } catch (error){
         console.log(error.message)
     }
