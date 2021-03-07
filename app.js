@@ -70,6 +70,7 @@ const EmployeePrompts = {
 chooseEmployee()
 
 function chooseEmployee(){
+    console.log("Build your engineering team. A team consists of a manager and any number of engineers and interns.")
     inquirer.prompt({
         name:"type",
         type:"rawlist",
@@ -109,9 +110,8 @@ function getEmployee(Schema){
                 console.log(newIntern)
                 EmployeeObjects.push(newIntern)
             }
-            // EmployeeObjects.push(new Schemas[Schema](r.name, r.id, r.email, r.last_arg ))
-            // EmployeeObjects.push(new Schemas(r.name, r.id, r.email, r.last_arg ))
-            // console.log(EmployeeObjects[0])
+        4
+
             chooseEmployee()
         })
         finish()
