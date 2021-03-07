@@ -11,51 +11,54 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 const { type } = require("os");
 
+
 const EmployeeObjects = []
+
 
 const baseQuestions = [
     {
-    name: "name",
-    type: "input",
-    message: "Name"
+        name: "name",
+        type: "input",
+        message: "Name"
     },
     {
-    name: "id",
-    type: "input",
-    message: "id"
+        name: "id",
+        type: "input",
+        message: "id"
     },
     {
-    name: "email",
-    type: "input",
-    message: "Email"
+        name: "email",
+        type: "input",
+        message: "Email"
     }
-
+    
 ]
 const EmployeePrompts = {
     Manager: [
         ...baseQuestions,
         {
-        name: "last_arg",
-        type: "input",
-        message: "Office Number"
+            name: "last_arg",
+            type: "input",
+            message: "Office Number"
         }
     ],
     Engineer: [
         ...baseQuestions,
         {
-        name: "last_arg",
-        type: "input",
-        message: "gitHub"
+            name: "last_arg",
+            type: "input",
+            message: "gitHub"
         }
     ],
     Intern: [
         ...baseQuestions,
         {
-        name: "last_arg",
-        type: "input",
-        message: "School"
+            name: "last_arg",
+            type: "input",
+            message: "School"
         }
     ]
+    
 }
 
 
@@ -73,8 +76,16 @@ function chooseEmployee(){
         message: "What type?",
         choices:["Manager","Engineer", "Intern", "Exit"]
     })
-        .then(response => response.type !== "Exit" ? getEmployee(response.type) : finish())
+    .then(response => response.type !== "Exit" ? getEmployee(response.type) : finish())
 }
+function Schemas(name, id, email, last_arg) 
+    {
+        this.name = name;
+        this.id = id;
+        this.email = email;
+        this.last_arg = last_arg;
+    }
+
 
 function getEmployee(Schema){
     inquirer.prompt(EmployeePrompts[Schema])
