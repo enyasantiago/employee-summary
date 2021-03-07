@@ -84,18 +84,26 @@ function Schemas(name, id, email, last_arg)
         this.id = id;
         this.email = email;
         this.last_arg = last_arg;
-    }
+        this.getEmployee = function (Schema){
+            inquirer.prompt(EmployeePrompts[Schema])
+            .then(r => {
+              EmployeeObjects.push(new Schemas[Schema](r.name, r.id, r.email, r.last_arg ))
+              chooseEmployee()
+            })
+          }
+      }
+    
 
 
-function getEmployee(Schema){
-    inquirer.prompt(EmployeePrompts[Schema])
-        .then(r => {
-            EmployeeObjects.push(new Schemas[Schema](r.name, r.id, r.email, r.last_arg ))
-            chooseEmployee()
-        })
-}
+// function getEmployee(Schema){
+//     inquirer.prompt(EmployeePrompts[Schema])
+//         .then(r => {
+//             EmployeeObjects.push(new Schemas[Schema](r.name, r.id, r.email, r.last_arg ))
+//             chooseEmployee()
+//         })
+// }
 
-function finish(){
+function finish()
     try {
         fs.writeFileSync(outputPath, render(EmployeeObjects))
     } catch (error){
