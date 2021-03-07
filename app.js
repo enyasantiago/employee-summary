@@ -79,27 +79,42 @@ function chooseEmployee(){
     .then(response => response.type !== "Exit" ? getEmployee(response.type) : finish())
 }
 
-function Schemas(name, id, email, last_arg) {
-    this.name = name;
-    this.id = id;
-    this.email = email;
-    this.last_arg = last_arg;
-    this.getEmployee = function(Schema){
-      inquirer.prompt(EmployeePrompts[Schema])
-      .then(r => {
-        EmployeeObjects.push(new Schemas[Schema](r.name, r.id, r.email, r.last_arg ))
-        chooseEmployee()
-      })
-    }
-}
+
+// function Schemas(name, id, email, last_arg) {
+//     this.name = name;
+//     this.id = id;
+//     this.email = email;
+//     this.last_arg = last_arg;
+//     this.getEmployee = function(Schema){
+//       inquirer.prompt(EmployeePrompts[Schema])
+//       .then(r => {
+//         EmployeeObjects.push(new Schemas[Schema](r.name, r.id, r.email, r.last_arg ))
+//         chooseEmployee()
+//       })
+//     }
+// }
 function getEmployee(Schema){
     inquirer.prompt(EmployeePrompts[Schema])
         .then(r => {
+            if (Schema === "Engineer") { 
+                const newEngineer = new Engineer(r.name, r.id, r.email, r.last_arg)
+                console.log(newEngineer)
+                EmployeeObjects.push(newEngineer)
+            } else if (Schema === "Manager") { 
+                const newManager = new Manager(r.name, r.id, r.email, r.last_arg)
+                console.log(newManager)
+                EmployeeObjects.push(newManager)
+            } else { 
+                const newIntern = new Intern(r.name, r.id, r.email, r.last_arg)
+                console.log(newIntern)
+                EmployeeObjects.push(newIntern)
+            }
             // EmployeeObjects.push(new Schemas[Schema](r.name, r.id, r.email, r.last_arg ))
-            EmployeeObjects.push(new Schemas(r.name, r.id, r.email, r.last_arg ))
+            // EmployeeObjects.push(new Schemas(r.name, r.id, r.email, r.last_arg ))
             // console.log(EmployeeObjects[0])
             chooseEmployee()
         })
+        finish()
 }
 
 function finish(){
