@@ -78,23 +78,29 @@ function chooseEmployee(){
     })
     .then(response => response.type !== "Exit" ? getEmployee(response.type) : finish())
 }
-function Schemas(name, id, email, last_arg) 
-    {
-        this.name = name;
-        this.id = id;
-        this.email = email;
-        this.last_arg = last_arg;
-        this.getEmployee = function (Schema){
-            inquirer.prompt(EmployeePrompts[Schema])
-            .then(r => {
-              EmployeeObjects.push(new Schemas[Schema](r.name, r.id, r.email, r.last_arg ))
-              chooseEmployee()
-            })
-          }
-      }
-    
 
-
+function Schemas(name, id, email, last_arg) {
+    this.name = name;
+    this.id = id;
+    this.email = email;
+    this.last_arg = last_arg;
+    this.getEmployee = function(Schema){
+      inquirer.prompt(EmployeePrompts[Schema])
+      .then(r => {
+        EmployeeObjects.push(new Schemas[Schema](r.name, r.id, r.email, r.last_arg ))
+        chooseEmployee()
+      })
+    }
+}
+function getEmployee(Schema){
+    inquirer.prompt(EmployeePrompts[Schema])
+        .then(r => {
+            // EmployeeObjects.push(new Schemas[Schema](r.name, r.id, r.email, r.last_arg ))
+            EmployeeObjects.push(new Schemas(r.name, r.id, r.email, r.last_arg ))
+            console.log(EmployeeObjects[0])
+            chooseEmployee()
+        })
+}
 // function getEmployee(Schema){
 //     inquirer.prompt(EmployeePrompts[Schema])
 //         .then(r => {
