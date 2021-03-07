@@ -5,8 +5,8 @@
   ## Demo 
   ![demo](https://github.com/enyasantiago/employee-summary/blob/main/screenshots/Employee%20Summary%20Demo.gif)
  
-  ## Description 
-  ![Sample Output](/screenshots/Employee Summary.png)
+  ## Sample Output 
+  ![Sample Output](https://github.com/enyasantiago/employee-summary/blob/main/screenshots/Employee%20Summary.png)
 
   ## Table of Contents 
   * [Installation](#installation)
